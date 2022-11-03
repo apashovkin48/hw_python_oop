@@ -15,10 +15,10 @@ class InfoMessage:
 
     def get_message(self):
         return (f"Тип тренировки: {self.trainig_type}; "
-                f"Длительность: {self.duration} ч.; "
-                f"Дистанция: {self.distance} км; "
-                f"Ср. скорость: {self.speed} км/ч; "
-                f"Потрачено ккал: {self.calories}.")
+                f"Длительность: {round(self.duration, 3)} ч.; "
+                f"Дистанция: {round(self.distance, 3)} км; "
+                f"Ср. скорость: {round(self.speed, 3)} км/ч; "
+                f"Потрачено ккал: {round(self.calories, 3)}.")
 
 
 class Training:
@@ -26,6 +26,8 @@ class Training:
     LEN_STEP = 1
     M_IN_KM = 1000
     TRAIN_NAME = "ОФП"
+    MIN_IN_HOUR = 60
+    SEC_IN_MIN = 60
 
     def __init__(self,
                  action: int,
@@ -41,8 +43,19 @@ class Training:
         return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
-        """Получить среднюю скорость движения."""
+        """Получить среднюю скорость движения в км/ч"""
         return self.get_distance() / self.duration
+
+    def speed_km_h_to_speed_m_s(self) -> float:
+        """Получить среднюю скорость движения в м/с"""
+        return (
+            self.get_mean_speed() * self.M_IN_KM
+            / (self.MIN_IN_HOUR * self.SEC_IN_MIN)
+        )
+
+    def get_duration_time_in_minutes(self):
+        """Получить время тренировки в минутах"""
+        return self.duration * self.MIN_IN_HOUR
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -80,7 +93,7 @@ class Running(Training):
                 * self.get_mean_speed()
                 + self.CALORIES_MEAN_SPEED_SHIFT
             )
-            * self.weight / self.M_IN_KM * self.duration
+            * self.weight / self.M_IN_KM * self.get_duration_time_in_minutes()
         )
 
 
@@ -90,6 +103,7 @@ class SportsWalking(Training):
     LEN_STEP = 0.65
     CALORIES_MASS_MULTIPLIER = 0.035
     CALORIES_ACC_MULTIPLIER = 0.029
+    SM_IN_M = 100
 
     def __init__(self,
                  action: int,
@@ -105,11 +119,14 @@ class SportsWalking(Training):
             (
                 self.CALORIES_MASS_MULTIPLIER
                 * self.weight
-                + (self.get_mean_speed()**2 / self.height)
+                + (
+                    self.speed_km_h_to_speed_m_s()**2
+                    / (self.height / self.SM_IN_M)
+                )
                 * self.CALORIES_ACC_MULTIPLIER
                 * self.weight
             )
-            * self.duration
+            * self.get_duration_time_in_minutes()
         )
 
 

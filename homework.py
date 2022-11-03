@@ -18,7 +18,7 @@ class InfoMessage:
                 f"Длительность: {format(self.duration, '.3f')} ч.; "
                 f"Дистанция: {format(self.distance, '.3f')} км; "
                 f"Ср. скорость: {format(self.speed, '.3f')} км/ч; "
-                f"Потрачено ккал: {format(self.calories, '.3f')}.")
+                f"Потрачено ккал: {self.calories}.")
 
 
 class Training:
@@ -45,10 +45,6 @@ class Training:
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения в км/ч"""
         return self.get_distance() / self.duration
-
-    def get_duration_time_in_minutes(self):
-        """Получить время тренировки в минутах"""
-        return self.duration * self.MIN_IN_H
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -86,7 +82,7 @@ class Running(Training):
                 * self.get_mean_speed()
                 + self.CALORIES_MEAN_SPEED_SHIFT
             )
-            * self.weight / self.M_IN_KM * self.get_duration_time_in_minutes()
+            * self.weight / self.M_IN_KM * self.duration * self.MIN_IN_H
         )
 
 
@@ -120,7 +116,7 @@ class SportsWalking(Training):
                 * self.CALORIES_SPEED_HEIGHT_MULTIPLIER
                 * self.weight
             )
-            * self.get_duration_time_in_minutes()
+            * self.duration * self.MIN_IN_H
         )
 
 

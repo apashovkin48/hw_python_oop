@@ -25,8 +25,9 @@ class Training:
     """Базовый класс тренировки."""
     LEN_STEP = 0.65
     M_IN_KM = 1000
+    SM_IN_M = 100
     TRAIN_NAME = "ОФП"
-    MIN_IN_HOUR = 60
+    MIN_IN_H = 60
     SEC_IN_MIN = 60
 
     def __init__(self,
@@ -50,12 +51,12 @@ class Training:
         """Получить среднюю скорость движения в м/с"""
         return (
             self.get_mean_speed() * self.M_IN_KM
-            / (self.MIN_IN_HOUR * self.SEC_IN_MIN)
+            / (self.MIN_IN_H * self.SEC_IN_MIN)
         )
 
     def get_duration_time_in_minutes(self):
         """Получить время тренировки в минутах"""
-        return self.duration * self.MIN_IN_HOUR
+        return self.duration * self.MIN_IN_H
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -102,8 +103,7 @@ class SportsWalking(Training):
     TRAIN_NAME = "Спортивная ходьба"
     LEN_STEP = 0.65
     CALORIES_WEIGHT_MULTIPLIER = 0.035
-    CALORIES_ACC_MULTIPLIER = 0.029
-    SM_IN_M = 100
+    CALORIES_SPEED_HEIGHT_MULTIPLIER = 0.029
 
     def __init__(self,
                  action: int,
@@ -123,7 +123,7 @@ class SportsWalking(Training):
                     self.speed_km_h_to_speed_m_s()**2
                     / (self.height / self.SM_IN_M)
                 )
-                * self.CALORIES_ACC_MULTIPLIER
+                * self.CALORIES_SPEED_HEIGHT_MULTIPLIER
                 * self.weight
             )
             * self.get_duration_time_in_minutes()

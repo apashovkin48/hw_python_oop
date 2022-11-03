@@ -47,13 +47,6 @@ class Training:
         """Получить среднюю скорость движения в км/ч"""
         return self.get_distance() / self.duration
 
-    def speed_km_h_to_speed_m_s(self) -> float:
-        """Получить среднюю скорость движения в м/с"""
-        return (
-            self.get_mean_speed() * self.M_IN_KM
-            / (self.MIN_IN_H * self.SEC_IN_MIN)
-        )
-
     def get_duration_time_in_minutes(self):
         """Получить время тренировки в минутах"""
         return self.duration * self.MIN_IN_H
@@ -104,6 +97,7 @@ class SportsWalking(Training):
     LEN_STEP = 0.65
     CALORIES_WEIGHT_MULTIPLIER = 0.035
     CALORIES_SPEED_HEIGHT_MULTIPLIER = 0.029
+    KMH_IN_MSEC = 0.278
 
     def __init__(self,
                  action: int,
@@ -120,7 +114,7 @@ class SportsWalking(Training):
                 self.CALORIES_WEIGHT_MULTIPLIER
                 * self.weight
                 + (
-                    self.speed_km_h_to_speed_m_s()**2
+                    (self.get_mean_speed() * self.KMH_IN_MSEC)**2
                     / (self.height / self.SM_IN_M)
                 )
                 * self.CALORIES_SPEED_HEIGHT_MULTIPLIER

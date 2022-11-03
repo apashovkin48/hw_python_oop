@@ -18,7 +18,7 @@ class InfoMessage:
                 f"Длительность: {format(self.duration, '.3f')} ч.; "
                 f"Дистанция: {format(self.distance, '.3f')} км; "
                 f"Ср. скорость: {format(self.speed, '.3f')} км/ч; "
-                f"Потрачено ккал: {self.calories}.")
+                f"Потрачено ккал: {format(self.calories, '.3f')}.")
 
 
 class Training:

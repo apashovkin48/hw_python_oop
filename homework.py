@@ -75,7 +75,7 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
-    TRAIN_NAME = "Бег"
+    TRAIN_NAME = "Running"
     LEN_STEP = 0.65
     CALORIES_MEAN_SPEED_MULTIPLIER = 18
     CALORIES_MEAN_SPEED_SHIFT = 1.79
@@ -100,7 +100,7 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
-    TRAIN_NAME = "Спортивная ходьба"
+    TRAIN_NAME = "SportsWalking"
     LEN_STEP = 0.65
     CALORIES_WEIGHT_MULTIPLIER = 0.035
     CALORIES_SPEED_HEIGHT_MULTIPLIER = 0.029
@@ -132,7 +132,7 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
-    TRAIN_NAME = "Плавание"
+    TRAIN_NAME = "Swimming"
     LEN_STEP = 1.38
     CALORIES_WEIGHT_MULTIPLIER = 2
     CALORIES_MEAN_SPEED_SHIFT = 1.1

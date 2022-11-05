@@ -16,7 +16,7 @@ class InfoMessage:
             "Длительность: {duration:.3f}; "
             "Дистанция: {distance:.3f}; "
             "Ср. скорость: {speed:.3f}; "
-            "Потрачено ккал: {calories:.3f}"
+            "Потрачено ккал: {calories:.3f}."
         ).format(**self.__dict__)
 
 

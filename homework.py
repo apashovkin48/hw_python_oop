@@ -146,10 +146,7 @@ class Swimming(Training):
         )
 
 
-def read_package(
-    workout_type: str,
-    data: list[int, int, int, int, int]
-) -> Training:
+def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
     if workout_type in 'SWM' or workout_type in 'RUN' or workout_type in 'WLK':
         training_names: dict[str, Training] = {

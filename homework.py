@@ -156,11 +156,16 @@ def read_package(workout_type: str, data: list) -> Training:
 
 
 def main(training: Training) -> None:
-    info: InfoMessage = training.show_training_info()
-    print(info.get_message())
+    if training is not None:
+        info: InfoMessage = training.show_training_info()
+        print(info.get_message())
+    else:
+        print('Данной тренировки не существует.')
 
 
 if __name__ == '__main__':
+    info = InfoMessage('Swimming', 1, 75, 1, 80)
+
     packages = [
         ('SWM', [720, 1, 80, 25, 40]),
         ('RUN', [15000, 1, 75]),
@@ -169,7 +174,4 @@ if __name__ == '__main__':
 
     for workout_type, data in packages:
         training = read_package(workout_type, data)
-        if training is not None:
-            main(training)
-        else:
-            print('Данной тренировки не существует.')
+        main(training)

@@ -11,13 +11,13 @@ class InfoMessage:
     calories: float
 
     def get_message(self) -> str:
-        return str((
+        return (
             "Тип тренировки: {training_type}; "
             "Длительность: {duration:.3f} ч.; "
             "Дистанция: {distance:.3f} км; "
             "Ср. скорость: {speed:.3f} км/ч; "
             "Потрачено ккал: {calories:.3f}."
-        ).format(**self.__dict__))
+        ).format(**self.__dict__)
 
 
 class Training:
@@ -148,19 +148,20 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    if workout_type in 'SWM' or workout_type in 'RUN' or workout_type in 'WLK':
-        training_names: dict[str, Training] = {
-            'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking
-        }
+
+    training_names: dict[str, Training] = {
+        'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking
+    }
+
+    if workout_type in training_names.keys():
         return training_names[workout_type](*data)
+    else:
+        raise ValueError(f"Тренировка {workout_type} не обнаружена.")
 
 
 def main(training: Training) -> None:
-    if training is not None:
-        info: InfoMessage = training.show_training_info()
-        print(info.get_message())
-    else:
-        print('Данной тренировки не существует.')
+    info: InfoMessage = training.show_training_info()
+    print(info.get_message())
 
 
 if __name__ == '__main__':

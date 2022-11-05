@@ -148,13 +148,11 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    if 'SWM' in workout_type or 'RUN' in workout_type or 'WLK' in workout_type:
+    if workout_type in 'SWM' or workout_type in 'RUN' or workout_type in 'WLK':
         training_names: dict[str, Training] = {
             'SWM': Swimming, 'RUN': Running, 'WLK': SportsWalking
         }
         return training_names[workout_type](*data)
-    else:
-        return None
 
 
 def main(training: Training) -> None:
@@ -171,7 +169,7 @@ if __name__ == '__main__':
 
     for workout_type, data in packages:
         training = read_package(workout_type, data)
-        if training is None:
-            print("Данного вида тренировки не существует")
-        else:
+        if training is not None:
             main(training)
+        else:
+            print('Данной тренировки не существует.')

@@ -11,13 +11,13 @@ class InfoMessage:
     calories: float
 
     def get_message(self) -> str:
-        return (
+        return str((
             "Тип тренировки: {training_type}; "
-            "Длительность: {duration:.3f}; "
+            "Длительность: {duration:.3f} ч.; "
             "Дистанция: {distance:.3f}; "
             "Ср. скорость: {speed:.3f}; "
             "Потрачено ккал: {calories:.3f}."
-        ).format(**self.__dict__)
+        ).format(**self.__dict__))
 
 
 class Training:

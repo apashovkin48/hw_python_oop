@@ -19,7 +19,7 @@ cd hw_python_oop
 python3 -m venv venv
 ```
 ```
-source venv/bit/activate
+source venv/bin/activate
 ```
 Установить зависимости из файла requirements.txt:
 ```
